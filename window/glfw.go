@@ -238,14 +238,15 @@ func (m *glfwManager) CreateWindow(width, height int, title string, fullscreen b
 	// Set mouse button callback to dispatch event
 	win.SetMouseButtonCallback(func(x *glfw.Window, button glfw.MouseButton, action glfw.Action, mods glfw.ModifierKey) {
 
-		xpos, ypos := x.GetCursorPos()
+		//xpos, ypos := x.GetCursorPos()
 
 		w.mouseEv.W = w
 		w.mouseEv.Button = MouseButton(button)
 		w.mouseEv.Action = Action(action)
 		w.mouseEv.Mods = ModifierKey(mods)
-		w.mouseEv.Xpos = float32(xpos * w.scaleX)
-		w.mouseEv.Ypos = float32(ypos * w.scaleY)
+		// XXX cove
+		//w.mouseEv.Xpos = float32(xpos * w.scaleX)
+		//w.mouseEv.Ypos = float32(ypos * w.scaleY)
 
 		if action == glfw.Press {
 			w.Dispatch(OnMouseDown, &w.mouseEv)
