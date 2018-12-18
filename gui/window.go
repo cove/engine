@@ -8,6 +8,7 @@ import (
 	"github.com/g3n/engine/math32"
 	"github.com/g3n/engine/window"
 	"github.com/g3n/engine/gui/assets/icon"
+	"runtime"
 )
 
 /*********************************************
@@ -198,8 +199,14 @@ func (w *Window) onCursor(evname string, ev interface{}) {
 			}
 		} else {
 			// Obtain cursor position relative to window
-			cx := cev.Xpos - w.pospix.X
-			cy := cev.Ypos - w.pospix.Y
+			var cx, cy float32
+			if runtime.GOOS == "darwin" {
+				cx = (cev.Xpos / 2) - w.pospix.X
+				cy = (cev.Ypos / 2) - w.pospix.Y
+			}  else {
+				cx = cev.Xpos - w.pospix.X
+				cy = cev.Ypos - w.pospix.Y
+			}
 			// Check if cursor is on the top of the window (border + drag margin)
 			if cy <= w.borderSizes.Top {
 				w.overTop = true
