@@ -283,8 +283,8 @@ func (m *glfwManager) CreateWindow(width, height int, title string, fullscreen b
 	win.SetCursorPosCallback(func(x *glfw.Window, xpos float64, ypos float64) {
 
 		w.cursorEv.W = w
-		w.cursorEv.Xpos = float32(xpos * w.scaleX)
-		w.cursorEv.Ypos = float32(ypos * w.scaleY)
+		w.cursorEv.Xpos = float32(xpos)
+		w.cursorEv.Ypos = float32(ypos)
 		w.Dispatch(OnCursor, &w.cursorEv)
 	})
 
