@@ -201,7 +201,7 @@ func (w *Window) onCursor(evname string, ev interface{}) {
 			// Obtain cursor position relative to window
 			cx := cev.Xpos - w.pospix.X
 			cy := cev.Ypos - w.pospix.Y
-			fmt.Printf("c=%f,%f pospix=%f,%f\n",cx,cy,w.pospix.X , w.pospix.Y)
+			fmt.Printf("c=%f,%f cev=%f,%f pospix=%f,%f\n",cx,cy, cev.Xpos, cev.Ypos,w.pospix.X , w.pospix.Y)
 			// Check if cursor is on the top of the window (border + drag margin)
 			if cy <= w.borderSizes.Top {
 				fmt.Printf("OverTop: cy(%f) <= w.borderSizes.Top(%f)\n",cy, w.borderSizes.Top)
