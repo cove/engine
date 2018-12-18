@@ -5,6 +5,7 @@
 package gui
 
 import (
+	"fmt"
 	"github.com/g3n/engine/math32"
 	"github.com/g3n/engine/window"
 	"github.com/g3n/engine/gui/assets/icon"
@@ -200,8 +201,10 @@ func (w *Window) onCursor(evname string, ev interface{}) {
 			// Obtain cursor position relative to window
 			cx := cev.Xpos - w.pospix.X
 			cy := cev.Ypos - w.pospix.Y
+			fmt.Printf("c=%f,%f pospix=%f,%f\n",cx,cy,w.pospix.X , w.pospix.Y)
 			// Check if cursor is on the top of the window (border + drag margin)
 			if cy <= w.borderSizes.Top {
+				fmt.Printf("OverTop: cy(%f) <= w.borderSizes.Top(%f)\n",cy, w.borderSizes.Top)
 				w.overTop = true
 				w.root.SetCursorVResize()
 			} else {
@@ -209,12 +212,16 @@ func (w *Window) onCursor(evname string, ev interface{}) {
 			}
 			// Check if cursor is on the bottom of the window (border + drag margin)
 			if cy >= w.height-w.borderSizes.Bottom - w.dragPadding {
+				fmt.Printf("OverBottom: cy(%f) >= w.height(%f) - w.borderSizes.Bottom(%f) - w.dragPadding(%f)\n",cy, w.height, w.borderSizes.Bottom, w.dragPadding)
+
 				w.overBottom = true
 			} else {
 				w.overBottom = false
 			}
 			// Check if cursor is on the left of the window (border + drag margin)
 			if cx <= w.borderSizes.Left + w.dragPadding {
+				fmt.Printf("OverLeft: cx(%f) <= w.borderSizes.Left(%f) + w.dragPadding(%f)\n",cx, w.borderSizes.Left, w.dragPadding)
+
 				w.overLeft = true
 				w.root.SetCursorHResize()
 			} else {
@@ -222,11 +229,13 @@ func (w *Window) onCursor(evname string, ev interface{}) {
 			}
 			// Check if cursor is on the right of the window (border + drag margin)
 			if cx >= w.width-w.borderSizes.Right - w.dragPadding {
+				fmt.Printf("OverRight: cx(%f) >= w.width(%f) - w.borderSizes.Right(%f) - w.dragPadding(%f)\n",cx, w.width,w.borderSizes.Right, w.dragPadding)
 				w.overRight = true
 				w.root.SetCursorHResize()
 			} else {
 				w.overRight = false
 			}
+			fmt.Printf("--------------------------------------)\n")
 			// Update cursor image based on cursor position
 			if (w.overTop || w.overBottom) && !w.overRight && !w.overLeft {
 				w.root.SetCursorVResize()
